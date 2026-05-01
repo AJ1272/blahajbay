@@ -39,7 +39,7 @@ class User extends Authenticatable
     }
 
     public function userroles(){
-        return $this->hasMany(UserRole::class);
+        return $this->hasOne(UserRole::class);
     }
 
     public function bids(){
