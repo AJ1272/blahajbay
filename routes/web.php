@@ -30,10 +30,10 @@ Route::put('/advertisements/{advertisement}', [AdvertisementController::class, '
 //User related pages for registering, logging in and reading their own messages.
 Route::get('/users/register',[RegisteredUserController::class, 'create'])->name('users.create'); //Page to register a new user
 Route::get('/users/account',[RegisteredUserController::class, 'account'])->name('users.account'); //Show the user's OWN account for managing passwords etc
-Route::post('/register', [RegisteredUserController::class, 'store'])->name('users.store'); //Actually call the store function to add the new user to the database
+Route::post('/users/store', [RegisteredUserController::class, 'store'])->name('users.store'); //Actually call the store function to add the new user to the database
 Route::get('/users/login',[RegisteredUserController::class, 'login'])->name('users.login'); //Page for the user to give their credentials for logging in
 Route::get('/users/logout',[RegisteredUserController::class, 'logout'])->name('users.logout'); //Logs out the currently logged in user
-Route::post('/login', [RegisteredUserController::class, 'authenticate'])->name('users.authenticate'); //Authenticate the provided user credentials, logs the user in if the credentials match
+Route::post('users/authenticate', [RegisteredUserController::class, 'authenticate'])->name('users.authenticate'); //Authenticate the provided user credentials, logs the user in if the credentials match
 Route::delete('/users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy'); //Removes the user if they are authenticated.
 
 //Pages for viewing OTHER users.
