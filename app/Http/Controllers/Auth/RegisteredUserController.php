@@ -8,6 +8,7 @@ use App\Http\Requests\StoreRegisteredUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 
 class RegisteredUserController extends Controller
 {
@@ -17,23 +18,27 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+    public function login()
+    {
+        return view('auth.login');
+    }
+
     public function store(StoreRegisteredUserRequest $request)
     {
         //dd($request);
         $user = User::create($request->validated());
         Auth::login($user);
-        return redirect()->route('users.account');
+        $request->session()->regenerate();
+        event(new Registered($user));
+        return redirect()->route('verification.notice');
     }
 
     public function destroy(User $user)
     {
-
-    }
-
-    public function login()
-    {
-        
-        return view('auth.login');
+        if (Auth::check() && $user->id === Auth::user()->id){
+            $user->delete();
+        }
+        return redirect()->route('advertisements.index');
     }
 
     public function logout(Request $request)
@@ -51,7 +56,9 @@ class RegisteredUserController extends Controller
             $request->session()->regenerate();
             return redirect()->route('users.account');
         }
-        return back()->withErrors();
+        return back()->withErrors([
+            'error' => 'Incorrect credentials.',
+        ]);
     }
 
     public function account()
