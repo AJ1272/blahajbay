@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserController;
-use App\Http\Requests\EmailVerificationRequest;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -20,19 +21,38 @@ Route::get('/users/logout',[RegisteredUserController::class, 'logout'])->name('u
 Route::post('users/authenticate', [RegisteredUserController::class, 'authenticate'])->name('users.authenticate'); //Authenticate the provided user credentials, logs the user in if the credentials match
 Route::delete('/users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy'); //Removes the user if they are authenticated.
 
+//Email verification routes
 Route::get('/email/verify', function(){
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');//Show user a notification that tells them they got a verification email.
+
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request){
     $request->fulfill();
 
-    return redirect()->route('advertisements.index');
+    return redirect()->route('users.account');
 })->middleware(['auth','signed'])->name('verification.verify'); //the link to get verified
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link resent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');//route for resending the verification email
+
+//Password reset routes
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+ 
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+ 
+    return $status === Password::ResetLinkSent
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email' => __($status)]);
+})->middleware('guest')->name('password.email');
 
 //Pages for viewing OTHER users.
 Route::get('/users/{user}/show',[UserController::class, 'show'])->name('users.show'); //Show a user's latest advertisements and ratings
