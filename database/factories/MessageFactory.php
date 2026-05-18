@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 /**
  * @extends Factory<User>
  */
-class CategoryFactory extends Factory
+class MessageFactory extends Factory
 {
     /**
      * Define the model's default state.

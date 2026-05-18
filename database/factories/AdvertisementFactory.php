@@ -22,8 +22,8 @@ class AdvertisementFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id,
             'title' => $this->faker->word,
             'description' => $this->faker->sentence,
+            'price' => $this->faker->numberBetween(0,100),
             'status' => $this->faker->randomElement(['available','sold','in review']),
-            'date' => date('m/d/Y h:i:s a', time()),
         ];
     }
 }

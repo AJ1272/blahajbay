@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sale extends Model
 {
+    use HasFactory;
+    
     public function advertisement(){
         return $this->hasOne(Advertisement::class);
     }

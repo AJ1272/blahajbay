@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('title');
             $table->string('description');
+            $table->decimal('price', $precision = 8, $scale = 2);
             $table->string('status');
-            $table->date('date');
             $table->timestamps();
         });
     }

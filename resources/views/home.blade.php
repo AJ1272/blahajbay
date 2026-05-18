@@ -28,7 +28,7 @@
                 </td>
 
                 <td>
-                    {{$advertisement->category}}
+                    
                 </td>
 
                 <td>

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AdvertisementPicture extends Model
 {
+    use HasFactory;
+    
     public function advertisement(){
         return $this->belongsTo(Advertisement::class);
     }

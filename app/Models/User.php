@@ -41,7 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function userroles(){
-        return $this->hasOne(UserRole::class);
+        return $this->hasOne(Userrole::class);
     }
 
     public function bids(){

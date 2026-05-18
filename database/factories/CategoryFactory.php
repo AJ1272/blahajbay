@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 /**
  * @extends Factory<User>
  */
-class MessageFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,9 +20,7 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'body' => $this->faker->sentence,
-            'blogpost_id' => Blogpost::inRandomOrder()->first()->id,
-            'user_id' => User::inRandomOrder()->first()->id,
+            'category' => $this->faker->word,
         ];
     }
 }
