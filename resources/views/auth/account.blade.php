@@ -19,8 +19,6 @@
             <p>Your email address ({{$user->email}}) has been verified at {{$user->email_verified_at}}</p>
         @endif
 
-        <h2>Password stuff.</h2>
-
         <h2>Account deletion.</h2>
         <form action="{{ route('users.destroy', $user->id) }}" method="POST">
             @csrf

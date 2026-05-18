@@ -26,4 +26,7 @@
 
     <button type="submit">Login</button>
 </form>
+
+<a href="{{route('password.request')}}">Oh no, I forgot my password.</a>
+
 @endsection
