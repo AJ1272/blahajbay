@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Advertisement extends Model
 {
     use HasFactory;
+
+    protected $attributes =[
+        'status' => 'available',
+    ];
+
+    protected $fillable =[
+        'user_id',
+        'title',
+        'description',
+        'price',
+        ];
     
     public function user(){
         return $this->belongsTo(User::class);

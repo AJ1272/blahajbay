@@ -32,7 +32,7 @@
             color: darkslategrey;
         }
 
-        .blogpost{
+        .advertisement{
             background-color: white;
             border: 1pt solid;
             margin: 10pt;

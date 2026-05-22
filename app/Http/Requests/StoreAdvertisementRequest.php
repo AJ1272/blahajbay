@@ -12,7 +12,7 @@ class StoreAdvertisementRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,18 @@ class StoreAdvertisementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'title is required.',
+            'description.required' => 'description is required.',
+            'price.required' => 'price is required.',
         ];
     }
 }
