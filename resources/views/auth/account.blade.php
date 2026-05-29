@@ -4,7 +4,7 @@
 
 @section('content')
     @if (Auth::check() && Auth::user()->id == $user->id)    
-        <h1>{{$user->name}}</h1>
+        <h1>Account page of {{$user->name}}</h1>
         <p>your awesome profile picture here</p>
     
         

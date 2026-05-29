@@ -4,6 +4,7 @@
         @if (Auth::check())
         <li><a href="{{ route('advertisements.create') }}">Post new advertisement</a></li>
         <li><a href="{{ route('users.account') }}">My Account</a></li>
+        <li><a href="{{ route('users.dashboard') }}">My Dashboard</a></li>
         <li><a href="{{ route('users.logout') }}">Logout</a></li>
         @else
         <li><a href="{{ route('users.create') }}">Register</a></li>

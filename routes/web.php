@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Password;
 //    return view('welcome');
 //});
 
-//User related pages for registering, logging in and reading their own messages.
+//User related pages for registering, logging in, and generally viewing all of their OWN stuff.
 Route::get('/users/register',[RegisteredUserController::class, 'create'])->name('users.create'); //Page to register a new user
 Route::get('/users/account',[RegisteredUserController::class, 'account'])->name('users.account'); //Show the user's OWN account for managing passwords etc
+Route::get('/users/dashboard',[RegisteredUserController::class, 'dashboard'])->name('users.dashboard'); //Page to view your own advertisements and messages
 Route::post('/users/store', [RegisteredUserController::class, 'store'])->name('users.store'); //Actually call the store function to add the new user to the database
 Route::get('/users/login',[RegisteredUserController::class, 'login'])->name('users.login'); //Page for the user to give their credentials for logging in
 Route::get('/users/logout',[RegisteredUserController::class, 'logout'])->name('users.logout'); //Logs out the currently logged in user

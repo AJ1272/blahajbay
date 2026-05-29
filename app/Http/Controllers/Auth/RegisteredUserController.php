@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthenticateRegisteredUserRequest;
 use App\Http\Requests\StoreRegisteredUserRequest;
+use App\Models\Advertisement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -54,7 +55,7 @@ class RegisteredUserController extends Controller
         $credentials = $request->validated();
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->route('users.account');
+            return redirect()->route('users.dashboard');
         }
         return back()->withErrors([
             'error' => 'Incorrect credentials.',
@@ -66,6 +67,15 @@ class RegisteredUserController extends Controller
         if (Auth::check()){
             $user = Auth::user();
             return view('auth.account', compact('user'));
+        }
+        return redirect()->route('users.login');
+    }
+
+    public function dashboard()
+    {
+        if (Auth::check()){
+            $user = Auth::user();
+            return view('auth.dashboard', compact('user'));
         }
         return redirect()->route('users.login');
     }
