@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\BidController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -88,8 +89,19 @@ Route::post('/reset-password', function (Request $request) {
         : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 
+
+
+
+
+
 //Pages for viewing OTHER users.
 Route::get('/users/{user}/show',[UserController::class, 'show'])->name('users.show'); //Show a user's latest advertisements and ratings
+
+
+
+
+
+
 
 //Homepage, must show:
 //Latest advertisements
@@ -99,6 +111,12 @@ Route::get('/users/{user}/show',[UserController::class, 'show'])->name('users.sh
 //Link to create a new advertisement
 Route::get('/', [AdvertisementController::class, 'index'])->name('advertisements.index');
 
+
+
+
+
+
+
 //Routes for managing your own advertisements
 Route::get('/advertisements/filter', [AdvertisementController::class, 'filter'])->name('advertisements.filter'); //Allows filtering of advertisements.
 Route::get('/advertisements/create', [AdvertisementController::class, 'create'])->name('advertisements.create');
@@ -107,5 +125,15 @@ Route::post('/advertisements/store', [AdvertisementController::class, 'store'])-
 Route::delete('/advertisements/{advertisement}', [AdvertisementController::class, 'destroy'])->name('advertisements.destroy');
 Route::put('/advertisements/{advertisement}', [AdvertisementController::class, 'update'])->name('advertisements.update');
 
+
+
+
+
+
+
 //Routes for viewing and interacting with advertisements
 Route::get('/advertisements/{advertisement}/show', [AdvertisementController::class, 'show'])->name('advertisements.show');
+
+//Placing and managing bids
+Route::post('/bids/store', [BidController::class, 'store'])->name('bids.store'); //
+

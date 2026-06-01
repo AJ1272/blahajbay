@@ -16,11 +16,11 @@
         @foreach($advertisements as $advertisement)
             <tr>
                 <td>
-                    <a href="{{ route('advertisements.show', $advertisement->id) }}">{{$advertisement->title}}</a>
+                    <a href="{{ route('advertisements.show', $advertisement) }}">{{$advertisement->title}}</a>
                 </td>
 
                 <td>
-                    <a href="{{ route('users.show', $advertisement->user_id) }}">{{$advertisement->user->name}}</a>
+                    <a href="{{ route('users.show', $advertisement->user) }}">{{$advertisement->user->name}}</a>
                 </td>
                 
                 <td>

@@ -9,6 +9,12 @@ class Bid extends Model
 {
     use HasFactory;
     
+    protected $fillable =[
+        'user_id',
+        'advertisement_id',
+        'height',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
