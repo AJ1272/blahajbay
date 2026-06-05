@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAdvertisementRequest;
 use App\Models\Advertisement;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class AdvertisementController extends Controller
 {
     public function index()
     {
-        $advertisements = Advertisement::orderBy('created_at','desc')->get();
+        $advertisements = Advertisement::orderBy('created_at','desc')->simplePaginate(15);
         
         return view('home', compact('advertisements'));
     }
@@ -22,7 +23,8 @@ class AdvertisementController extends Controller
             return redirect()->route('advertisements.index');
         }
         else {
-            return view('advertisements.create');
+            $categories = Category::orderby('category', 'desc')->get();
+            return view('advertisements.create', compact('categories'));
         }
     }
 
@@ -39,6 +41,9 @@ class AdvertisementController extends Controller
 
             //store the advertisement in the database
             $advertisement = Advertisement::create($validated);
+
+            //connect the selected categories
+            $advertisement->categories()->attach($request->input('category'));
             //store the image in the public disk
             //save the image to the database
             //show user their advertisement
@@ -49,6 +54,7 @@ class AdvertisementController extends Controller
     public function show(Advertisement $advertisement)
     {
         $advertisement->load('bids');
+        $advertisement->load('categories');
         return view('advertisements.show', compact('advertisement'));
     }
 
@@ -57,7 +63,8 @@ class AdvertisementController extends Controller
         if (!Auth::check() || $advertisement->user_id !== Auth::user()->id){
             return redirect()->route('advertisements.index');
         }
-        return view('advertisements.edit', compact('advertisement'));
+        $categories = Category::orderby('category', 'desc')->get();
+        return view('advertisements.edit', compact('advertisement', 'categories'));
     }
 
     public function update(Request $request, Advertisement $advertisement)
@@ -66,6 +73,9 @@ class AdvertisementController extends Controller
         $advertisement->description = $request->input('description');
         $advertisement->price = $request->input('price');
         $advertisement->save();
+        //remove old categories and attach new ones
+        $advertisement->categories()->detach();
+        $advertisement->categories()->attach($request->input('category'));
         return view('advertisements.show', compact('advertisement'));
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBidRequest;
 use App\Models\Bid;
+use App\Models\Advertisement;
 use Illuminate\Support\Facades\Auth;
 
 class BidController extends Controller
@@ -18,8 +19,8 @@ class BidController extends Controller
             //validate the bid
             $validated = $request->validated();
             $validated['user_id'] = Auth::user()->id;
-            $validated['advertisement_id'] = 
-            Bid::create($validated);
+            $bid = Bid::create($validated);
+            //dd($advertisement);
             return redirect()->route('advertisements.show', $bid->advertisement);
         }
     }

@@ -28,7 +28,9 @@
                 </td>
 
                 <td>
-                    
+                    @foreach( $advertisement->categories as $category)
+                        <span class="themelabel">{{$category->category}}</span>
+                    @endforeach
                 </td>
 
                 <td>

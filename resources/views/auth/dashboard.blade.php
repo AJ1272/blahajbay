@@ -11,6 +11,11 @@
             <div class="advertisement">
                 <h3><a href="{{route('advertisements.show', $advertisement)}}">{{$advertisement->title}}</a></h3>
                 <p>{{$advertisement->description}}</p>
+                Current categories:
+                @foreach( $advertisement->categories as $category)
+                    <span class="themelabel">{{$category->category}}</span>
+                @endforeach
+            <br>
                 <p>Your asking price: {{$advertisement->price}}</p>
                 @foreach ($advertisement->bids as $bid)
                     {{$bid->user->name}} bid {{$bid->height}} <br>

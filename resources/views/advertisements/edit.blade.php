@@ -24,6 +24,21 @@
                 <label><h2>asking price (in euros):</h2></label>
                 <input type="number" min="0" step="0.01" id="price" name="price" value="{{$advertisement->price}}" required>
             </div>
+
+            <div class="formitem">
+            <label><h2>Category:</h2></label>
+            Current categories:
+            @foreach( $advertisement->categories as $category)
+                <span class="themelabel">{{$category->category}}</span>
+            @endforeach
+            <br>
+            <select multiple id="category" name="category[]" required>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->category }}</option>
+                @endforeach
+            </select>
+            <p>(you can select multiple themes by holding Ctrl or Command. Note: old categories will be removed.)</p>
+            </div>
         
             <div class="formitem">
                 <label for="image"><h2>Select Image</h2></label>

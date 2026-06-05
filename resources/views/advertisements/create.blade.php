@@ -30,6 +30,16 @@
             </div>
 
             <div class="formitem">
+            <label><h2>Category:</h2></label>
+            <select multiple id="category" name="category[]" required>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->category }}</option>
+                @endforeach
+            </select>
+            <p>(you can select multiple themes by holding Ctrl or Command)</p>
+            </div>
+
+            <div class="formitem">
                 <label><h2>Premium</h2></label>
                 <input type ="checkbox" id="premium" name="premium" value="premium"></input>
                 <p>Pay us money to give your add a nice golden background (does nothing else).</p>

@@ -23,7 +23,9 @@ class StoreBidRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price' => 'required',
+            'height' => 'required',
+            'advertisement_id' => 'required',
+            'user_id' => 'required',
         ];
     }
 }
