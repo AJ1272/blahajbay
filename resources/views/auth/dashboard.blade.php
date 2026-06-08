@@ -5,21 +5,20 @@
 @section('content')
     @if (Auth::check() && Auth::user()->id == $user->id)    
         <h1>Dashboard of {{$user->name}}</h1>
-    
         <h2>Your advertisements:</h2>
-        @foreach ($user->advertisements as $advertisement)
+        @foreach ($advertisements as $advertisement)
             <div class="advertisement">
                 <h3><a href="{{route('advertisements.show', $advertisement)}}">{{$advertisement->title}}</a></h3>
-                <p>{{$advertisement->description}}</p>
-                Current categories:
                 @foreach( $advertisement->categories as $category)
                     <span class="themelabel">{{$category->category}}</span>
                 @endforeach
-            <br>
+                <p>{{$advertisement->description}}</p>
                 <p>Your asking price: {{$advertisement->price}}</p>
+                <ul>
                 @foreach ($advertisement->bids as $bid)
-                    {{$bid->user->name}} bid {{$bid->height}} <br>
+                    <li>{{$bid->user->name}} bid {{$bid->height}}</li>
                 @endforeach
+                </ul>
                 <a href="{{route('advertisements.edit', $advertisement)}}">Edit advertisement</a>
                 <form action="{{ route('advertisements.destroy', $advertisement) }}" method="POST">
                     @csrf
@@ -30,10 +29,20 @@
         @endforeach
         
         <h2>Your messages:</h2>
-        @foreach ($user->messages as $message)
+        @foreach ($messages as $message)
             <div class="advertisement">
                 <h3>Send to {{$message->user_id}}</h3>
                 <p>{{$message->content}}</p>
+            </div>
+        @endforeach
+
+        <h2>Advertisements you are bidding on:</h2>
+        @foreach ($bids as $bid)
+            <div class="advertisement">
+                <h3><a href="{{route('advertisements.show', $bid->advertisement)}}">{{$bid->advertisement->title}}</a></h3>
+                <p>Your highest bid: something</p>
+                <p>Current heighest bid: something by someone</p>
+
             </div>
         @endforeach
         

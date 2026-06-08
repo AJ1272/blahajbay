@@ -75,7 +75,10 @@ class RegisteredUserController extends Controller
     {
         if (Auth::check()){
             $user = Auth::user();
-            return view('auth.dashboard', compact('user'));
+            $advertisements = $user->advertisements;
+            $bids = $user->bids->unique('advertisement_id');
+            $messages = $user->messages;
+            return view('auth.dashboard', compact('user', 'advertisements', 'bids', 'messages'));
         }
         return redirect()->route('users.login');
     }
