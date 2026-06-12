@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory;
     
-    public function advertisments(){
-        return $this->hasMany(Category::class);
+    public function advertisements(){
+        return $this->belongsToMany(Advertisement::class);
     }
 }

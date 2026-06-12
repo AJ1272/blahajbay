@@ -10,11 +10,24 @@ use Illuminate\Support\Facades\Auth;
 
 class AdvertisementController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $advertisements = Advertisement::orderBy('created_at','desc')->simplePaginate(15);
+    
+        $filter = $request->input('category');
+
+        if($filter){
+            
+            $filtercategory = Category::where('category', $filter)->first();
         
-        return view('home', compact('advertisements'));
+            $advertisements = $filtercategory->advertisements()->orderBy('created_at','desc')->simplePaginate(3);
+        }
+        else {
+            $advertisements = Advertisement::orderBy('created_at','desc')->simplePaginate(15);
+        }
+        
+        $menucategories = Category::all();
+
+        return view('home', compact('advertisements', 'menucategories'));
     }
 
     public function create()
