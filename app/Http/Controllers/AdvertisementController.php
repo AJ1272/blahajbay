@@ -11,23 +11,19 @@ use Illuminate\Support\Facades\Auth;
 class AdvertisementController extends Controller
 {
     public function index(Request $request)
-    {
-    
-        $filter = $request->input('category');
+    {   
 
-        if($filter){
-            
-            $filtercategory = Category::where('category', $filter)->first();
+        $category = $request->category;
         
-            $advertisements = $filtercategory->advertisements()->orderBy('created_at','desc')->simplePaginate(3);
-        }
-        else {
-            $advertisements = Advertisement::orderBy('created_at','desc')->simplePaginate(15);
-        }
-        
+        $searchterm = '%';
+
+        $advertisements = Advertisement::whereHas('categories', function ($query) use($category){
+            $query->where('category', $category);
+        })->whereAny(['title', 'description'], 'like', $searchterm)->simplePaginate(10);
+
         $menucategories = Category::all();
 
-        return view('home', compact('advertisements', 'menucategories'));
+        return view('home', compact('advertisements', 'menucategories', 'category'));
     }
 
     public function create()

@@ -54,4 +54,5 @@
         @endforeach
     </table>
     {{$advertisements->links()}}
+
 @endsection
