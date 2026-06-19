@@ -18,8 +18,15 @@ class AdvertisementController extends Controller
         $searchterm = '%';
 
         $advertisements = Advertisement::whereHas('categories', function ($query) use($category){
-            $query->where('category', $category);
-        })->whereAny(['title', 'description'], 'like', $searchterm)->simplePaginate(10);
+            if (isset($category)) {
+                $query->where('category', $category);
+            }
+            else {
+                $query->where('category', 'like', '%');
+            }
+        })->whereAny(['title', 'description'], 'like', $searchterm)->Paginate(3)->withQueryString();
+
+        //$advertisements = Advertisement::paginate(3)->withQueryString();
 
         $menucategories = Category::all();
 
