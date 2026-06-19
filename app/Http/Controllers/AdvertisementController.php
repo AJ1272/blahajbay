@@ -15,7 +15,11 @@ class AdvertisementController extends Controller
 
         $category = $request->category;
         
-        $searchterm = '%';
+        $searchterm = $request->searchterm;
+
+        if (!isset($searchterm)) {
+            $searchterm = '%';
+        }
 
         $advertisements = Advertisement::whereHas('categories', function ($query) use($category){
             if (isset($category)) {
@@ -24,9 +28,8 @@ class AdvertisementController extends Controller
             else {
                 $query->where('category', 'like', '%');
             }
-        })->whereAny(['title', 'description'], 'like', $searchterm)->Paginate(3)->withQueryString();
+        })->whereAny(['title', 'description'], 'like', "%" . $searchterm . "%")->Paginate(3)->withQueryString();
 
-        //$advertisements = Advertisement::paginate(3)->withQueryString();
 
         $menucategories = Category::all();
 

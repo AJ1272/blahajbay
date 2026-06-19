@@ -13,6 +13,8 @@
                 <option value="{{ $category->category }}">{{ $category->category }}</option>
             @endforeach
         </select>
+        <label><h2>Searchterm:</h2></label>
+        <input type="text" id="searchterm" name="searchterm" value="">
         <button type="submit">Filter</button>
 
     </form>

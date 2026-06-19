@@ -90,17 +90,8 @@ Route::post('/reset-password', function (Request $request) {
 })->middleware('guest')->name('password.update');
 
 
-
-
-
-
 //Pages for viewing OTHER users.
 Route::get('/users/{user}/show',[UserController::class, 'show'])->name('users.show'); //Show a user's latest advertisements and ratings
-
-
-
-
-
 
 
 //Homepage, must show:
@@ -112,13 +103,7 @@ Route::get('/users/{user}/show',[UserController::class, 'show'])->name('users.sh
 Route::get('/', [AdvertisementController::class, 'index'])->name('advertisements.index');
 
 
-
-
-
-
-
 //Routes for managing your own advertisements
-Route::get('/advertisements/filter', [AdvertisementController::class, 'filter'])->name('advertisements.filter'); //Allows filtering of advertisements.
 Route::get('/advertisements/create', [AdvertisementController::class, 'create'])->name('advertisements.create');
 Route::get('/advertisements/{advertisement}/edit', [AdvertisementController::class, 'edit'])->name('advertisements.edit');
 Route::post('/advertisements/store', [AdvertisementController::class, 'store'])->name('advertisements.store'); //
@@ -126,13 +111,9 @@ Route::delete('/advertisements/{advertisement}', [AdvertisementController::class
 Route::put('/advertisements/{advertisement}', [AdvertisementController::class, 'update'])->name('advertisements.update');
 
 
-
-
-
-
-
 //Routes for viewing and interacting with advertisements
 Route::get('/advertisements/{advertisement}/show', [AdvertisementController::class, 'show'])->name('advertisements.show');
+
 
 //Placing and managing bids
 Route::post('/bids/store', [BidController::class, 'store'])->name('bids.store'); //
