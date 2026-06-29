@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\MessagechainController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserController;
@@ -116,5 +118,8 @@ Route::get('/advertisements/{advertisement}/show', [AdvertisementController::cla
 
 
 //Placing and managing bids
-Route::post('/bids/store', [BidController::class, 'store'])->name('bids.store'); //
+Route::post('/bids/store', [BidController::class, 'store'])->name('bids.store');
 
+//Routes for managing messages and messagechains
+Route::post('/messages/store', [MessageController::class, 'store'])->name('messages.store');
+Route::post('/messagechains/store', [MessagechainController::class, 'store'])->name('messagechains.store');

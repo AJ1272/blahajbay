@@ -72,9 +72,23 @@ class AdvertisementController extends Controller
 
     public function show(Advertisement $advertisement)
     {
-        $advertisement->load('bids');
-        $advertisement->load('categories');
-        return view('advertisements.show', compact('advertisement'));
+        $advertisement->with(['bids' => function ($query){
+        $query->orderBy('height','desc');
+        }]);
+        $advertisement->with('categories');
+        if (!Auth::check()){
+            return view('advertisements.show', compact('advertisement'));
+        } elseif(Auth::user()->id == $advertisement->user->id){
+            $advertisement->with('messagechains');
+            return view('advertisements.show', compact('advertisement'));
+        } else {
+            $buyer = Auth::user()->id;
+            $advertisement->with(['messagechains' => function ($query) use ($buyer) {
+                $query->where('buyer_id','=',$buyer);
+            }]);
+            return view('advertisements.show', compact('advertisement'));
+        }
+        //return redirect()->route('advertisements.index');
     }
 
     public function edit(Advertisement $advertisement)

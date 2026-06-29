@@ -32,6 +32,10 @@ class Advertisement extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function messagechains(){
+        return $this->hasMany(Messagechain::class);
+    }
+
     public function bids(){
         return $this->hasMany(Bid::class);
     }

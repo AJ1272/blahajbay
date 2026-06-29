@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             AdvertisementSeeder::class,
             BidSeeder::class,
             SaleSeeder::class,
+            MessagechainSeeder::class,
             MessageSeeder::class,
         ]);
         User::factory()->create([

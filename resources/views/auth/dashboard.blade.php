@@ -27,14 +27,6 @@
                 </form>
             </div>
         @endforeach
-        
-        <h2>Your messages:</h2>
-        @foreach ($messages as $message)
-            <div class="advertisement">
-                <h3>Send to {{$message->user_id}}</h3>
-                <p>{{$message->content}}</p>
-            </div>
-        @endforeach
 
         <h2>Advertisements you are bidding on:</h2>
         @foreach ($bids as $bid)

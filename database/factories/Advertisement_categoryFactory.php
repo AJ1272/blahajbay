@@ -2,19 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
-use App\Models\Messagechain;
-use App\Models\Message;
-use App\Models\User;
 use App\Models\Advertisement;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends Factory<User>
- */
-class MessageFactory extends Factory
+
+class AdvertisementFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -24,9 +19,11 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'messagechain_id' => Messagechain::inRandomOrder()->first()->id,
             'user_id' => User::inRandomOrder()->first()->id,
-            'content' => $this->faker->sentence,
+            'title' => $this->faker->word,
+            'description' => $this->faker->sentence,
+            'price' => $this->faker->numberBetween(0,100),
+            'status' => $this->faker->randomElement(['available','sold','in review']),
         ];
     }
 }

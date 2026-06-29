@@ -4,15 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Message;
+use App\Models\Messagechain;
 
-class MessageSeeder extends Seeder
+class MessagechainSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Message::factory()->count(400)->create();
+        Messagechain::factory()->count(100)->create();
     }
 }
